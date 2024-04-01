@@ -21,7 +21,7 @@ export default function Add() {
     }
 
     useEffect(() => {
-        getUserList();
+        // getUserList();
     }, []);
 
     const fileRef = useRef(null);
