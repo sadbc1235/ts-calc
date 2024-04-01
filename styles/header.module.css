@@ -1,0 +1,72 @@
+.container {
+    height: 50px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #000;
+    position: relative;
+}
+.container > figure {
+    height: 100%;
+}
+.container > figure > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.container > input[type='button'] {
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+.container > .menuName {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    width: 100px;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+.nav {
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    background-color: #575757de;
+    width: 0%;
+    height: calc(100% - 50px);
+    color: #fff;
+    padding: 0px;
+    border-radius: 50% 0% 0% 50%;
+    transition: width 0.3s ease-in-out, border-radius 0.5s ease-in-out, padding 0.5s ease-in-out;
+    overflow: hidden;
+}
+.nav.active {
+    width: 40%;
+    height: calc(100% - 50px);
+    padding: 0px 10px;
+    border-radius: 0%;
+}
+.nav li {
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    margin: 10px 0px 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #fff;
+}
+.nav li.active {
+    opacity: 1;
+}
+.nav li > a {
+    padding-left: 10px;
+    font-size: 17px;
+    transition: all 0.3s ease-in-out;
+    opacity: 0.8;
+}
+.nav li > a.in {
+    padding-left: 3px;
+    font-size: 19px;
+    opacity: 1;
+}

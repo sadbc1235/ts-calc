@@ -1,0 +1,40 @@
+.search {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 10px 0px;
+}
+.search > input[type='month'] {
+    outline: none;
+    border: 1px solid #000;
+    border-radius: 10px;
+    height: 25px;
+    padding: 0px 5px;
+}
+
+.container {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+}
+
+.container > article {
+    border: 1px solid #000;
+    display: flex;
+    border-radius: 10px;
+}
+.container > article > div {
+    padding: 10px 5px;
+}
+
+.container > article > div:nth-child(1) {
+    border-right: 1px solid #000;
+    border-radius: 10px;
+    width: 30%;
+    text-align: center;
+}
+
+.container > article > div:nth-child(2) {
+    width: 70%;
+    text-align: right;
+}

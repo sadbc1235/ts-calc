@@ -1,0 +1,61 @@
+.search {
+    padding: 17px 0px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search > input[type='month'] {
+    border: 1px solid #000;
+    outline: none;
+    border-radius: 10px;
+    padding: 3px 5px;
+}
+
+.container {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14%, 1fr));
+    border-top: 1px solid #000;
+}
+.container > article {
+    border: 1px solid #000;
+    border-top: none;
+    border-left: none;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+.container > article:nth-child(1) {
+    color: #fc8686;
+}
+
+.container > article:nth-child(7) {
+    color: #7f7fdd;
+    border-right: none;
+}
+.container > article:nth-child(7),
+.container > article:nth-child(14),
+.container > article:nth-child(21),
+.container > article:nth-child(28),
+.container > article:nth-child(35),
+.container > article:nth-child(42),
+.container > article:nth-child(49) {
+    border-right: none;
+}
+
+.container > .dateBox {
+    text-align: left;
+    height: 50px;
+}
+.container > .dateBox.shadow {
+    background-color: #b3b3b357;
+}
+.container > .dateBox > div {
+    border: 1px solid #000;
+    border-top: none;
+    border-left: none;
+    line-height: 18px;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+}
