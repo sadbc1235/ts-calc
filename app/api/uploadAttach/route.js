@@ -8,7 +8,9 @@ export async function POST(req) {
   if (req.method === 'POST') {
       const formData = await req.formData();
       const file = formData.getAll('files')[0]
-      const filePath = `./file/${file.lastModified}-${file.name}`;
+      // const directory = fs.existsSync(".next/file");
+      // !directory && fs.mkdirSync("./file");
+      const filePath = `.next/file/${file.lastModified}-${file.name}`;
       await pump(file.stream(), fs.createWriteStream(filePath));
   
       // console.log('======================file=================')
