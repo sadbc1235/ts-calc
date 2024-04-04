@@ -84,10 +84,10 @@ export default function Add() {
     const delAttach = () => {
         const url = window.location.origin+'/api/delAttach';
         callPostApi( url, {imgName: imgName}, (data) => {
-            console.log(data)
             setImgName({empSeq: '', imgName: ''});
             setFile({name: ''});
             setOcrFail(false);
+            setAmtList([]);
             fileRef.current.value = '';
         });
     }
