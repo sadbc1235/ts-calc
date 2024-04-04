@@ -46,10 +46,9 @@
 .container > article:nth-child(4) > div > svg > path {
     fill: #5a5a5a;
 }
-.container > article:nth-child(4) > img {
+.container > article:nth-child(4) > iframe {
     width: 95%;
     height: 95%;
-    object-fit: contain;
 }
 
 .container > article > div {

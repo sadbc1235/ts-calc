@@ -3,7 +3,7 @@ export async function POST(req) {
       const resData = await req.formData();
       const file = resData.getAll('files')[0];
       const empSeq = resData.get('empSeq');
-      console.log(empSeq)
+      
       let formdata = new FormData();
       formdata.append("file", file);
       formdata.append("empSeq", empSeq);

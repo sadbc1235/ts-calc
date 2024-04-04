@@ -2,7 +2,7 @@ export async function POST(req: Request) {
   if (req.method === 'POST') {
       const reqJson = await req.json();
       const {url} = reqJson;
-      console.log(url)
+      // console.log(url)
       const res = await fetch(
         'https://z9gfm9c88b.apigw.ntruss.com/custom/v1/29692/0d12c857d6cce0a0f909d224aa26af5e4547c481d5ba5a9ce2f750dcd82b1223/general'
         , {
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
                   "format": 'jpg',
                   "name": "medium",
                   "data": null,
-                  "url": url
+                  "url": `http://${process.env.DB_HOST}:3000${url}`
                 }
               ],
               "lang": "ko",

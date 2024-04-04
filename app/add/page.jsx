@@ -10,8 +10,8 @@ export default function Add() {
     const [empSeq, setEmpSeq] = useState('');
     const [date, setDate] = useState(fnGetDateNow('-'));
     const [file, setFile] = useState({name: ''});
-    const [imgName, setImgName] = useState('');
-    const [amtList, setAmtList] = useState([{key: 1, amt: '100000'}]);
+    const [imgName, setImgName] = useState({empSeq: '', imgName: ''});
+    const [amtList, setAmtList] = useState([]);
     const [ocrFail, setOcrFail] = useState(false);
     const [amtText, setAmtText] = useState('');
 
@@ -46,7 +46,7 @@ export default function Add() {
         callAttachApi(url, formdata, (data) => {
             console.log(data);
             if(data.state == 'success') {
-                setImgName(data.imgUrl);
+                setImgName(data);
                 getOcrText(data.imgUrl);
             } else {
                 alert('오류가 발생하였습니다.');
@@ -57,7 +57,7 @@ export default function Add() {
 
     const getOcrText = (imgName) => {
         const url = window.location.origin+'/api/getOcrText';
-        const imgUrl = `http://115.86.255.100:3000${imgName}`;
+        const imgUrl = imgName;
         callPostApi( url, {url: imgUrl}, (data) => {
             if(!!data?.code) {
                 alert('텍스트 추출 실패');
@@ -65,7 +65,18 @@ export default function Add() {
                 return;
             } else {
                 setOcrFail(false);
-                console.log(data)
+
+                const krReg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+                const enReg = /[a-z|A-Z]/;
+                let amtList = [];
+                data.images[0].fields
+                .filter(item => item.inferText.includes(',') && !krReg.test(item.inferText) && !enReg.test(item.inferText))
+                .forEach((el, idx) => {
+                    amtList.push({key: idx, amt: el.inferText});
+                });
+                amtList.sort((a, b) => (+(b.amt.replace(',', ''))) - (+(a.amt.replace(',', ''))));
+
+                setAmtList(amtList);
             }
         });
     }
@@ -73,7 +84,8 @@ export default function Add() {
     const delAttach = () => {
         const url = window.location.origin+'/api/delAttach';
         callPostApi( url, {imgName: imgName}, (data) => {
-            setImgName('');
+            console.log(data)
+            setImgName({empSeq: '', imgName: ''});
             setFile({name: ''});
             setOcrFail(false);
             fileRef.current.value = '';
@@ -104,15 +116,15 @@ export default function Add() {
             </article>
             <article>
                 <input ref={fileRef} accept="image/*" type="file" onChange={handleChange} />
-                {imgName != '' && <div className={styles.btnDel} onClick={delAttach}> ❌ </div>}
-                {imgName == '' && 
+                {imgName.imgName != '' && <div className={styles.btnDel} onClick={delAttach}> ❌ </div>}
+                {imgName.imgName == '' && 
                     <div onClick={handleClick}>
                         <svg viewBox="0 0 448 512">
                             <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
                         </svg>
                     </div>
                 }
-                {imgName != '' && <img src={`http://115.86.255.100:3000${imgName}`} />}
+                {imgName.imgName != '' && <iframe src={`http://115.86.255.100:3000/file/${imgName.empSeq}/${imgName.imgName}`}></iframe>}
             </article>
             <article>
                 <div>Amt</div>
