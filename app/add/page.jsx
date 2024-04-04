@@ -124,7 +124,7 @@ export default function Add() {
                         </svg>
                     </div>
                 }
-                {imgName.imgName != '' && <iframe src={`http://115.86.255.100:3000/file/${imgName.empSeq}/${imgName.imgName}`}></iframe>}
+                {imgName.imgName != '' && <iframe src={`${window.location.origin}/api/getImg?empSeq=${imgName.empSeq}&imgName=${imgName.imgName}`}></iframe>}
             </article>
             <article>
                 <div>Amt</div>
