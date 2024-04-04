@@ -3,10 +3,6 @@ export async function POST(req: Request) {
     const reqJson = await req.json();
     const {imgName} = reqJson;
 
-    let formdata = new FormData();
-    formdata.append("empSeq", imgName.empSeq);
-    formdata.append("imgName", imgName.imgName);
-
     const res = await fetch(
       `http://${process.env.DB_HOST}:3000/delFile`
       , {
