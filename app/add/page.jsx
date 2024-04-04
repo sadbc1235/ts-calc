@@ -21,7 +21,7 @@ export default function Add() {
     }
 
     useEffect(() => {
-        // getUserList();
+        getUserList();
     }, []);
 
     const fileRef = useRef(null);
@@ -30,22 +30,34 @@ export default function Add() {
     };
 
     const handleChange = (e) => {
-        setFile(e.target.files[0]);
+        if(!empSeq) {
+            alert("사용자를 선택하세요.");
+            return;
+        } else {
+            setFile(e.target.files[0]);
+        }
     }
 
     const uploadAttach = () => {
         const url = window.location.origin+'/api/uploadAttach';
         let formdata = new FormData();
+        formdata.append("empSeq", empSeq);
         formdata.append("files", file);
         callAttachApi(url, formdata, (data) => {
-            setImgName(data);
-            getOcrText(data);
+            console.log(data);
+            if(data.state == 'success') {
+                setImgName(data.imgUrl);
+                getOcrText(data.imgUrl);
+            } else {
+                alert('오류가 발생하였습니다.');
+                return;
+            }
         });
     }
 
     const getOcrText = (imgName) => {
         const url = window.location.origin+'/api/getOcrText';
-        const imgUrl = window.location.origin+`/file/${imgName}`;
+        const imgUrl = `http://115.86.255.100:3000${imgName}`;
         callPostApi( url, {url: imgUrl}, (data) => {
             if(!!data?.code) {
                 alert('텍스트 추출 실패');
@@ -100,7 +112,7 @@ export default function Add() {
                         </svg>
                     </div>
                 }
-                {imgName != '' && <img src={`/file/${imgName}`} />}
+                {imgName != '' && <img src={`http://115.86.255.100:3000${imgName}`} />}
             </article>
             <article>
                 <div>Amt</div>

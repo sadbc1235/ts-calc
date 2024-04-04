@@ -20,7 +20,7 @@ export async function POST(req: Request) {
               "lang": "ko",
               "requestId": "string",
               "resultType": "string",
-              "timestamp": "",
+              "timestamp": Date.now(),
               "version": "V1"
           })
         }

@@ -1,20 +1,23 @@
-import fs from 'fs';
-import { pipeline } from 'stream';
-import { promisify } from "util";
-
-const pump = promisify(pipeline);
-
 export async function POST(req) {
   if (req.method === 'POST') {
-      const formData = await req.formData();
-      const file = formData.getAll('files')[0];
-      const filePath = `./public/file/${file.lastModified}-${file.name}`;
-      await pump(file.stream(), fs.createWriteStream(filePath));
-  
-      // console.log('======================file=================')
-      // console.log(file)
-      // console.log('======================file=================')
-      return Response.json({status:"success", data: {name: (file.lastModified +'-'+ file.name)}});
+      const resData = await req.formData();
+      const file = resData.getAll('files')[0];
+      const empSeq = resData.get('empSeq');
+      console.log(empSeq)
+      let formdata = new FormData();
+      formdata.append("file", file);
+      formdata.append("empSeq", empSeq);
+
+      const res = await fetch(
+        `http://${process.env.DB_HOST}:3000/upload`
+        , {
+          method: 'POST'
+          , body: formdata
+        }
+      );
+
+      const resJson = await res.json();
+      return Response.json(resJson);
   } else {
     // Handle any other HTTP method
   }

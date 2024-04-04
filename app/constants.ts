@@ -54,11 +54,10 @@ export function callPostApi(url, param, setFn) {
 }
 
 export function callAttachApi(url, formData, setFn) {
-    let res = {}
     fetch(url, {
             method: 'POST'
             , body: formData
         })
         .then((res) => res.json())
-        .then(data => setFn(data.data.name));
+        .then(data => setFn(data));
 }
