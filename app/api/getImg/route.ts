@@ -4,14 +4,7 @@ export async function GET(req: Request) {
     const empSeq = query[0].split('=')[1];
     const imgName = query[1].split('=')[1];
 
-    const res = await fetch( 
-      `http://${process.env.DB_HOST}:3000/file/${empSeq}/${imgName}` 
-      , {
-        method: 'POST'
-        , headers: { 'Content-Type': 'application/json' }
-        , body: JSON.stringify({empSeq: empSeq, imgName: imgName})
-      }
-    );
+    const res = await fetch( `http://${process.env.DB_HOST}:3000/file/${empSeq}/${imgName}` );
 
     return res;
   } else {
