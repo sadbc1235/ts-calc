@@ -1,0 +1,25 @@
+.container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 0px;
+    color: #fff;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+    border-radius: 0% 0% 50% 50%;
+    transition: height 0.3s ease-in-out, border-radius 0.5s ease-in-out, background-color 0.3s ease-in-out;
+}
+.container.warning {
+    background-color: #d89e00;
+}
+.container.success {
+    background-color: #40ad00;
+}
+.container.active {
+    height: 60px;
+    border-radius: 0%;
+}

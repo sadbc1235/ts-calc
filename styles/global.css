@@ -137,7 +137,7 @@ body {
     "Helvetica Neue",
     sans-serif;
   font-size: 18px;
-  overflow: hidden;
+  height: 100vh;
 }
 
 a {

@@ -1,7 +1,10 @@
 .container {
     padding: 17px 10px 10px;
 }
-
+.container input,
+.container select {
+    background-color: #fff;
+}
 .container > article {
     display: flex;
     align-items: center;

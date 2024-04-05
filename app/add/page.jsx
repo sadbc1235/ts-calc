@@ -3,8 +3,17 @@
 import styles from "../../styles/add.module.css"
 import { useEffect, useRef, useState } from "react";
 import { callAttachApi, callPostApi, fnGetCurrencyCode, fnGetDateNow } from "../constants";
+import Loading from "../../components/loading";
+import Notice from "../../components/notice";
 
 export default function Add() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [noticeMap, setNoticeMap] = useState({isActvie: false, type: '', msg: ''});
+    const fnCallNotice = (type, msg) => {
+        setNoticeMap({isActvie: true, type: type, msg: msg});
+        setTimeout(() => { setNoticeMap({isActvie: false, type: '', msg: msg}); }, 2000);
+    }
+
     const [userList, setUserList] = useState([]);
 
     const [empSeq, setEmpSeq] = useState('');
@@ -17,7 +26,10 @@ export default function Add() {
 
     const getUserList = () => {
         const url = window.location.origin+'/api/getUserList';
-        callPostApi( url, {}, setUserList );
+        callPostApi( url, {}, (data) => {
+            setUserList(data);
+            setIsLoading(false);
+        });
     }
 
     useEffect(() => {
@@ -26,16 +38,16 @@ export default function Add() {
 
     const fileRef = useRef(null);
     const handleClick = () => {
-        fileRef?.current?.click();
+        if(!empSeq) {
+            fnCallNotice('warning', '사용자를 선택하세요.');
+        } else {
+            fileRef?.current?.click();
+        }
     };
 
     const handleChange = (e) => {
-        if(!empSeq) {
-            alert("사용자를 선택하세요.");
-            return;
-        } else {
-            setFile(e.target.files[0]);
-        }
+        setIsLoading(true);
+        setFile(e.target.files[0]);
     }
 
     const uploadAttach = () => {
@@ -44,7 +56,7 @@ export default function Add() {
         formdata.append("empSeq", empSeq);
         formdata.append("files", file);
         callAttachApi(url, formdata, (data) => {
-            console.log(data);
+            // console.log(data);
             if(data.state == 'success') {
                 setImgName(data);
                 getOcrText(data.imgUrl);
@@ -60,7 +72,7 @@ export default function Add() {
         const imgUrl = imgName;
         callPostApi( url, {url: imgUrl}, (data) => {
             if(!!data?.code) {
-                alert('텍스트 추출 실패');
+                fnCallNotice('warning', '텍스트 추출을 실패하였습니다.');
                 setOcrFail(true)
                 return;
             } else {
@@ -72,16 +84,22 @@ export default function Add() {
                 data.images[0].fields
                 .filter(item => item.inferText.includes(',') && !krReg.test(item.inferText) && !enReg.test(item.inferText))
                 .forEach((el, idx) => {
-                    amtList.push({key: idx, amt: el.inferText});
+                    !amtList.filter(item => item.amt == el.inferText).length && amtList.push({key: idx, amt: el.inferText});
                 });
                 amtList.sort((a, b) => (+(b.amt.replace(',', ''))) - (+(a.amt.replace(',', ''))));
 
                 setAmtList(amtList);
+                if(!amtList.length){
+                    setOcrFail(true);
+                    fnCallNotice('warning', '인식된 금액이 없습니다.');
+                }
             }
+            setIsLoading(false);
         });
     }
 
     const delAttach = () => {
+        setIsLoading(true);
         const url = window.location.origin+'/api/delAttach';
         callPostApi( url, {imgName: imgName}, (data) => {
             setImgName({empSeq: '', imgName: ''});
@@ -89,6 +107,7 @@ export default function Add() {
             setOcrFail(false);
             setAmtList([]);
             fileRef.current.value = '';
+            setIsLoading(false);
         });
     }
 
@@ -97,6 +116,9 @@ export default function Add() {
     }, [file]);
 
     return (
+        <>
+        <Notice isActvie={noticeMap.isActvie} type={noticeMap.type} msg={noticeMap.msg} />
+        {isLoading && <Loading/>}
         <section className={styles.container}>
             <article>
                 <div>Name</div>
@@ -144,5 +166,6 @@ export default function Add() {
                 <input type="button" value="Save" />
             </article>
         </section>
+        </>
     );
 }
