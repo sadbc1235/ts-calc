@@ -13,6 +13,7 @@ export default function reportPage({searchParams}) {
     const [isLoading, setIsLoading] = useState(true);
 
     const getTotalAmtList = () => {
+        setIsLoading(true);
         const url = window.location.origin+'/api/getTotalAmtList';
         callPostApi(
             url
