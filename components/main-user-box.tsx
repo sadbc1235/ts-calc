@@ -1,10 +1,13 @@
-import { fnGetCurrencyCode } from "../app/constants";
+import Link from "next/link";
+import { fnGetCurrencyCodeView } from "../app/constants";
 
-export default function MainUserBox({empName, totalAmt}) {
+export default function MainUserBox({empSeq, empName, totalAmt, date}) {
     return (
-        <article>
-            <div>{empName}</div>
-            <div>{fnGetCurrencyCode(totalAmt)} \</div>
-        </article> 
+        <Link href={!!totalAmt ? `/report/${empSeq}?date=${date}` : '/report'}>
+            <article>
+                <div>{empName}</div>
+                <div>{fnGetCurrencyCodeView(totalAmt)} &#8361;</div>
+            </article> 
+        </Link>
     );
 }

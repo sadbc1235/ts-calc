@@ -25,7 +25,7 @@ const executeQuery = (query, arrParams) => {
                 // console.log('------db.jsx------');
                 //console.log(data)
                 resolve(data);
-            })
+            });
         } catch (err) {
             reject(err);
         }

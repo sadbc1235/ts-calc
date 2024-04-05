@@ -27,7 +27,7 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx", "app/(home)/page.jsx", "app/report/emp/page.jsx", "app/add/page.jsx", "app/api/uploadAttach/route.js",
+    "**/*.tsx", "app/(home)/page.jsx", "app/report/[empSeq]/page.jsx", "app/add/page.jsx", "app/api/uploadAttach/route.js", "components/add.tsx",
   ],
   "exclude": [
     "node_modules"

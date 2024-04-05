@@ -9,7 +9,7 @@ export default function Header() {
     const path = usePathname();
     const [active, setActive] = useState(false);
     return (
-        <div>
+        <div className={styles.headerWrap}>
             <header className={styles.container}>
                 <figure>
                     <img src="/TS_LOGO.png" />
@@ -29,7 +29,7 @@ export default function Header() {
                         <Link href='/' className={path == "/" ? styles.in : ''}  onClick={() => setActive(false)}>Home</Link>
                     </li>
                     <li className={active ? styles.active : ''}>
-                        <Link href='/report/emp' className={path == "/report/emp" ? styles.in : ''} onClick={() => setActive(false)}>Report</Link>
+                        <Link href='/report' className={path == "/report" ? styles.in : ''} onClick={() => setActive(false)}>Report</Link>
                     </li>
                     <li className={active ? styles.active : ''}>
                         <Link href='/add' className={path == "/add" ? styles.in : ''} onClick={() => setActive(false)}>Add</Link>

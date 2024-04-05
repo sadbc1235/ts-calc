@@ -1,16 +1,16 @@
 'use client'
 
-import MainUserBox from "../../../components/main-user-box";
-import { callPostApi, fnGetDateNow } from "../../constants";
+import MainUserBox from "../../components/main-user-box";
+import { callPostApi, fnGetDateNow } from "../constants";
 import { useEffect, useState } from "react";
-import styles from "../../../styles/home.module.css"
+import styles from "../../styles/report.module.css"
 
-export default function reportEmpPage() {
-    const dateNow = fnGetDateNow('-').substring(0, 7);
+export default function reportPage({searchParams}) {
+    const dateNow = !!searchParams?.date ? searchParams.date : fnGetDateNow('-').substring(0, 7);
     const [date, setDate] = useState(dateNow);
     const [userList, setUserList] = useState([]);
 
-    const getUserList = () => {
+    const getTotalAmtList = () => {
         const url = window.location.origin+'/api/getTotalAmtList';
         callPostApi(
             url
@@ -18,10 +18,9 @@ export default function reportEmpPage() {
             , setUserList
         );
     }
-    
 
     useEffect(() => {
-        getUserList();
+        getTotalAmtList();
     }, [date])
 
     const handleChange = (e) => {
@@ -35,7 +34,7 @@ export default function reportEmpPage() {
             </section>
             <section className={styles.container}>
                 {userList.map(item => (
-                    <MainUserBox key={item.empSeq} empName={item.empName} totalAmt={item.totalAmt} />
+                    <MainUserBox key={item.empSeq} empSeq={item.empSeq} empName={item.empName} totalAmt={item.totalAmt} date={date} />
                 ))}
             </section>
         </div>

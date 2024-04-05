@@ -43,6 +43,14 @@ export function fnGetCurrencyCode(value) {
     }
 }
 
+export function fnGetCurrencyCodeView(value) {
+    if (!value) {
+        return '0';
+    } else {
+        return ('' + value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+}
+
 export function callPostApi(url, param, setFn) {
     fetch(url, {
             method: 'POST'
