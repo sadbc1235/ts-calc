@@ -17,6 +17,7 @@ export default function HomePage() {
     }
 
     const getDateMap = (dateMonth) => {
+        setIsLoading(true);
         const prevDateMonth = dateMonth.split('-')[0] +'-'+ ((+dateMonth.split('-')[1]) - 1 == 0 ? '12' : (+dateMonth.split('-')[1]) - 1 < 10 ? '0'+((+dateMonth.split('-')[1]) - 1) : (+dateMonth.split('-')[1]) - 1);
         const prevLastDate = fnGetLastDate(prevDateMonth);
         const currLastDate = fnGetLastDate(dateMonth);
