@@ -45,7 +45,7 @@
 }
 .nav.active {
     width: 40%;
-    height: calc(100% - 50px);
+    height: calc(100vh - 50px);
     padding: 0px 10px;
     border-radius: 0%;
 }
