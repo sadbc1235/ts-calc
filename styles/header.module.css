@@ -35,7 +35,7 @@
     right: 0px;
     background-color: #575757de;
     width: 0%;
-    height: calc(100% - 50px);
+    height: calc(100vh - 50px);
     color: #fff;
     padding: 0px;
     border-radius: 50% 0% 0% 50%;
