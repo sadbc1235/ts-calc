@@ -90,11 +90,38 @@ export default function Add({initMap}) {
         setFile(e.target.files[0]);
     }
 
-    const uploadAttach = () => {
+    function fnImgCompression(img){
+        console.log(img)
+        const maxSize = 500;
+
+        let width = img.width;
+        let height = img.height;
+        if (width > maxSize) {
+            height *= maxSize / width;
+            width = maxSize;
+        }
+
+        //canvas에 이미지 객체를 리사이징해서 담는 과정
+        let canvas = document.createElement("canvas");
+        canvas.width = width; //리사이징하여 그릴 가로 길이
+        canvas.height = height; //리사이징하여 그릴 세로 길이
+        canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+      
+        //canvas의 dataurl를 blob(file)화 하는 과정
+        let dataURI = canvas.toDataURL("image/jpeg"); //png => jpg 등으로 변환 가능
+        var bytes = dataURI.split(',')[0].indexOf('base64') >= 0 ?
+            atob(dataURI.split(',')[1]) :
+            unescape(dataURI.split(',')[1]);
+        var mime = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var max = bytes.length;
+        var ia = new Uint8Array(max);
+        for (var i = 0; i < max; i++) {
+            ia[i] = bytes.charCodeAt(i);
+        }
         const url = window.location.origin+'/api/uploadAttach';
         let formdata = new FormData();
         formdata.append("empSeq", empSeq);
-        formdata.append("files", file);
+        formdata.append("files", new Blob([ia], { type: 'image/jpeg'}));
         callAttachApi(url, formdata, (data) => {
             // console.log(data);
             if(data.state == 'success') {
@@ -105,6 +132,19 @@ export default function Add({initMap}) {
                 return;
             }
         });
+      }
+
+    const uploadAttach = () => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            let img = new Image();
+            img.src = reader.result;
+            img.onload = () => {
+                fnImgCompression(img);    
+            }
+        }
+
+        reader.readAsDataURL(file);
     }
 
     const getOcrText = (imgName) => {
