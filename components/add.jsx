@@ -91,7 +91,6 @@ export default function Add({initMap}) {
     }
 
     function fnImgCompression(img){
-        console.log(img)
         const maxSize = 500;
 
         let width = img.width;
