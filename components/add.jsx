@@ -245,7 +245,7 @@ export default function Add({initMap}) {
             </article>
             <article>
                 { !initMap?.empSeq ?
-                    <input type="button" value="Save" onClick={saveRes} />
+                    <input type="button" value="Save" onClick={saveRes} disabled={isLoading} />
                     :
                     <Link href={`/report/${initMap.empSeq}?date=${initMap.spendDate.substring(0, 7)}`}>Back</Link>
                 }
