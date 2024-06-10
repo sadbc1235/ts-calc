@@ -6,6 +6,7 @@ import "ag-grid-community/styles/ag-theme-quartz.css";
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Loading from '../../components/loading';
 import { callPostApi } from '../constants';
+import styles from '../../styles/name.module.css'
 
 
 export default function name({params, searchParams}) {
@@ -59,7 +60,7 @@ export default function name({params, searchParams}) {
      * 표준 단어 관련
      */
     const onSelectionChanged = (e) => {
-        if(!e.api.getSelectedRows()[0].domainClassificationName == '-' || !e.api.getSelectedRows()[0].domainClassificationName == ''){
+        if(!e.api.getSelectedRows()[0]?.domainClassificationName == '-' || !e.api.getSelectedRows()[0]?.domainClassificationName == ''){
             setDomainData(domainList.filter(item => item.domainClassificationName == e.api.getSelectedRows()[0].domainClassificationName));
         }
     };
@@ -219,22 +220,10 @@ export default function name({params, searchParams}) {
     
     
     return (
-        <section 
-            style={{
-                width: '100%'
-                , height: 'calc(100% - 50px)'
-                , position: 'relative'
-                , display: 'flex'
-            }}
-        >
+        <section className={styles.wrapper}>
             {isLoading && <Loading/>}
-            <article
-                style={{
-                    height: '100%'
-                    , flex: 2
-                }}
-            >
-                <div className="ag-theme-quartz" style={{ height: 50, lineHeight: '50px', fontWeight: 'bold', paddingLeft: 20}}>
+            <article>
+                <div className={styles.searchBox}>
                     <label>
                         <select value={searchLg} onChange={(e) => setSearchLg(e.target.value)}>
                             <option value="kor">한국어</option>
@@ -298,13 +287,7 @@ export default function name({params, searchParams}) {
                     />
                 </div>
             </article>
-            <article
-                style={{
-                    height: '100%'
-                    , flex: 1
-                    , borderLeft: '2px solid #000'
-                }}
-            >
+            <article>
                 <div
                     className="ag-theme-quartz"
                     style={{ width: '100%', height: 'calc(50% - 50px)' }}

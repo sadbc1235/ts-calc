@@ -1,0 +1,22 @@
+.wrapper {
+    width: 100%;
+    height: calc(100% - 50px);
+    position: relative;
+    display: flex;
+}
+.wrapper > article:nth-child(1) {
+    height: 100%;
+    flex: 2;
+}
+.searchBox {
+    height: 50;
+    line-height: 50px;
+    font-weight: bold;
+    padding-left: 20;
+}
+
+.wrapper > article:nth-child(2) {
+    height: 100%;
+    flex: 1;
+    border-left: 2px solid #000;
+}

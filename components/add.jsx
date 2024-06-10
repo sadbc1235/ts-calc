@@ -166,6 +166,7 @@ export default function Add({initMap}) {
                     !amtList.filter(item => item.amt == el.inferText).length && amtList.push({key: idx, amt: el.inferText});
                 });
                 amtList.sort((a, b) => (+(b.amt.replace(',', ''))) - (+(a.amt.replace(',', ''))));
+                amtList.push({key: (amtList.length - 1), amt: '직접입력'})
 
                 setAmtList(amtList);
                 if(!amtList.length){
@@ -232,7 +233,16 @@ export default function Add({initMap}) {
             <article>
                 <div>Amt</div>
                 {!ocrFail ?
-                <select defaultValue={amtText} onChange={(e) => setAmtText(e.target.value)}>
+                <select 
+                    defaultValue={amtText} 
+                    onChange={(e) => {
+                        if(e.target.value == '직접입력') {
+                            setOcrFail(true);
+                        } else {
+                            setAmtText(e.target.value);
+                        }
+                    }}
+                >
                     {amtList.length != 0 ? amtList.map(amt => (
                         <option key={amt.key} value={amt.amt}> {amt.amt} </option>
                     )) : 
