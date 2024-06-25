@@ -2,7 +2,7 @@
 
 import { AgGridReact } from 'ag-grid-react';
 import "../../../styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-quartz.css";
+import "../../../styles/ag-theme-quartz.css";
 import styles from '../../../styles/tables.module.css'
 import Loading from '../../../components/loading';
 import { useEffect, useMemo, useRef, useState } from 'react';
