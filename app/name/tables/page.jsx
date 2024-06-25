@@ -120,7 +120,7 @@ export default function tables({params, searchParams}) {
                alias += (idx == 0 ? item : item.charAt(0).toUpperCase() + item.slice(1)); 
             });
 
-            script += (idx == 0 ? '   ' : '   ,')+ item.columnName + '    AS ' + alias +'\n';
+            script += (idx == 0 ? '   ' : '   , ')+ item.columnName + '    AS ' + alias +'\n';
         });
         script += 'FROM   ' + tableRows[0].tableName;
 
@@ -131,7 +131,7 @@ export default function tables({params, searchParams}) {
         let script = '';
         script += 'INSERT INTO ' + tableRows[0].tableName + ' (\n';
         colRows.forEach((item, idx) => {
-            script += (idx == 0 ? '   ' : '   ,')+ item.columnName +'\n';
+            script += (idx == 0 ? '   ' : '   , ')+ item.columnName +'\n';
         });
         script += ') VALUES (\n';
         colRows.forEach((item, idx) => {
@@ -158,7 +158,7 @@ export default function tables({params, searchParams}) {
                alias += (idx == 0 ? item : item.charAt(0).toUpperCase() + item.slice(1)); 
             });
 
-            script += (idx == 0 ? '   ' : '   ,')+ item.columnName + '    = #{' + alias +'}\n';
+            script += (idx == 0 ? '   ' : '   , ')+ item.columnName + '    = #{' + alias +'}\n';
         });
         script += 'WHERE';
 
