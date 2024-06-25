@@ -124,7 +124,6 @@ export default function name({params, searchParams}) {
             , field: 'enactmentCnt'
             , cellStyle: { textAlign: 'center' }
             , checkboxSelection: true 
-            , headerCheckboxSelection: true
         }, { 
             headerName: '공통표준도메인분류명'
             , width: 200
