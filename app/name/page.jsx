@@ -287,7 +287,7 @@ export default function name({params, searchParams}) {
                     />
                 </div>
             </article>
-            <article>
+            {/* <article>
                 <div
                     className="ag-theme-quartz"
                     style={{ width: '100%', height: 'calc(50% - 50px)' }}
@@ -307,7 +307,7 @@ export default function name({params, searchParams}) {
                 >
                     <textarea style={{ width: '100%', height: '100%', resize: 'none', border: 'none' }}></textarea>
                 </div>
-            </article>
+            </article> */}
         </section>  
     );
 }

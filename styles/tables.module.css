@@ -1,0 +1,30 @@
+.wrapper {
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+}
+
+.wrapper > article {
+    flex: 1;
+    height: 100%;
+    border: 1px solid #000;
+}
+
+.wrapper > article > h1 {
+    font-weight: bold;
+    height: 50px;
+    padding: 10px;
+    line-height: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper > article > div {
+    height: calc(100% - 50px);
+}
+
+.wrapper > article > div > textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+}
