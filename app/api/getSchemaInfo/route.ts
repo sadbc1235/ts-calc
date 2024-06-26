@@ -8,7 +8,7 @@ export async function POST(req: Request) {
       SELECT
           table_name      AS tableName
           , table_comment AS tableComment
-      FROM information_schema.TABLES WHERE table_schema = 'cust_ts_test'`;
+      FROM information_schema.TABLES WHERE table_schema = 'custom'`;
 
       const tableList = await executeQuery(tableSql, []);
 
@@ -21,12 +21,12 @@ export async function POST(req: Request) {
         FROM (
             SELECT
                 table_name, table_comment
-            FROM information_schema.TABLES WHERE table_schema='cust_ts_test'
+            FROM information_schema.TABLES WHERE table_schema='custom'
         ) t1
         , (
             SELECT
                 TABLE_NAME, COLUMN_NAME, DATA_TYPE, COLUMN_TYPE, COLUMN_KEY, IS_NULLABLE, COLUMN_DEFAULT, EXTRA, COLUMN_COMMENT, ORDINAL_POSITION, CHARACTER_MAXIMUM_LENGTH
-            FROM information_schema.COLUMNS WHERE table_schema='cust_ts_test'
+            FROM information_schema.COLUMNS WHERE table_schema='custom'
         ) t2
 
         WHERE       t1.table_name   = t2.table_name
