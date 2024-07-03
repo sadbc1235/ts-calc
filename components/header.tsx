@@ -27,12 +27,15 @@ export default function Header() {
 
 
                 {!(path.includes("/name")) ? <div></div> :
-                <ul style={{display: "flex",justifyContent: "space-between" , width: "150px", border: "1px solid #000", padding: "5px 10px", borderRadius: "10px"}}>
+                <ul style={{display: "flex",justifyContent: "space-between" , width: "400px", border: "1px solid #000", padding: "5px 10px", borderRadius: "10px"}}>
                     <li>
                         <Link href='/name'>search</Link>
                     </li>
                     <li>
                         <Link href='/name/tables'>tables</Link>
+                    </li>
+                    <li>
+                        <Link href='/name/check'>comment 다른애 찾는곳</Link>
                     </li>
                 </ul>
                 }

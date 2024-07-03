@@ -34,7 +34,7 @@ export default function tables({params, searchParams}) {
             , field: 'tableName'
             // , checkboxSelection: true 
             // , headerCheckboxSelection: true
-            }, { 
+        }, { 
             headerName: '테이블 설명'
             , flex: 1
             , minWidth: 200
@@ -73,7 +73,7 @@ export default function tables({params, searchParams}) {
         setIsLoading(true);
         callPostApi(
             window.location.origin+'/api/getSchemaInfo'
-            , {}
+            , { searchStr: '' }
             , (data) => {
                 setTableData(data.tableList);
                 setColList(data.colList);

@@ -2,6 +2,8 @@ import executeQuery from '../../_lib/db';
  
 export async function POST(req: Request) {
   if (req.method === 'POST') {
+    const reqJson = await req.json();
+    const {searchStr} = reqJson;
       let result = {};
 
       const tableSql = `
@@ -18,6 +20,7 @@ export async function POST(req: Request) {
             , t1.TABLE_COMMENT  AS tableComment
             , t2.COLUMN_NAME    AS columnName
             , t2.COLUMN_COMMENT AS columnComment
+            , t2.COLUMN_TYPE    AS columnType
         FROM (
             SELECT
                 table_name, table_comment
@@ -29,11 +32,16 @@ export async function POST(req: Request) {
             FROM information_schema.COLUMNS WHERE table_schema='custom'
         ) t2
 
-        WHERE       t1.table_name   = t2.table_name
+        WHERE       t1.table_name       = t2.table_name
+        AND         (
+            t2.COLUMN_NAME      LIKE CONCAT('%', ?, '%')
+            OR 
+            t2.COLUMN_COMMENT   LIKE CONCAT('%', ?, '%')
+        )
 
         ORDER BY    t1.table_name, ordinal_position`;
 
-      const colList = await executeQuery(colSql, []);
+      const colList = await executeQuery(colSql, [searchStr, searchStr]);
 
       result['tableList'] = tableList;
       result['colList'] = colList;
