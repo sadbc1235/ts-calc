@@ -169,7 +169,7 @@ export default function Add({initMap}) {
                 amtList.push({key: (amtList.length - 1), amt: '직접입력'})
 
                 setAmtList(amtList);
-                if(!amtList.length){
+                if(amtList.length == 1){
                     setOcrFail(true);
                     fnCallNotice('warning', '인식된 금액이 없습니다.');
                 } else {
